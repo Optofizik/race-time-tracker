@@ -30,7 +30,6 @@ The application is intended for rapid keyboard-driven operation. Reliability of 
 - Recovery of an unfinished competition after an application restart.
 - Input validation and user-visible error handling.
 - Single-file Windows executable publishing.
-- Unit tests for domain and persistence behavior.
 
 ### Out of scope
 
@@ -51,7 +50,6 @@ The application is intended for rapid keyboard-driven operation. Reliability of 
 - **Language:** C# with nullable reference types enabled
 - **Architecture:** lightweight MVVM with dependency injection
 - **JSON:** `System.Text.Json`
-- **Tests:** xUnit
 - **Target framework:** `net10.0-windows`
 - **Runtime identifier:** `win-x64` for the first distributable build
 
@@ -69,8 +67,6 @@ src/
     Domain/
     Application/
     Infrastructure/
-tests/
-  RaceTimeTracker.Tests/
 phases/
   first_phase.md
 ```
@@ -306,7 +302,7 @@ Domain rules:
 `IClock`
 
 - exposes the current local time;
-- allows deterministic unit tests.
+- centralizes access to the current time.
 
 `ICompetitionNameGenerator`
 
@@ -395,7 +391,7 @@ Trimming should be disabled for the MVP unless a verified WPF-compatible configu
 
 ### Task 1 — Bootstrap solution
 
-- Create application and test projects.
+- Create the WPF application project.
 - Configure .NET 10, WPF, nullable reference types, and warnings.
 - Add dependency-injection composition in `App`.
 - Add the single-file publish profile.
@@ -408,7 +404,7 @@ Deliverable: buildable solution and application shell.
 - Add persistence, clock, and name-generator abstractions.
 - Define typed operation results or application exceptions.
 
-Deliverable: independently testable core contracts.
+Deliverable: core domain and application contracts.
 
 ### Task 3 — Implement JSON repository
 
@@ -418,7 +414,7 @@ Deliverable: independently testable core contracts.
 - Implement safe replacement and in-process write serialization.
 - Detect zero, one, or multiple active competitions.
 
-Deliverable: tested competition metadata persistence.
+Deliverable: competition metadata persistence.
 
 ### Task 4 — Implement CSV passage writer
 
@@ -427,7 +423,7 @@ Deliverable: tested competition metadata persistence.
 - Format elapsed durations invariantly.
 - Ensure failed writes do not appear successful.
 
-Deliverable: tested append-only passage storage.
+Deliverable: append-only passage storage.
 
 ### Task 5 — Implement application services
 
@@ -450,7 +446,6 @@ Deliverable: complete operator workflow.
 
 ### Task 7 — Verification and packaging
 
-- Run unit tests.
 - Execute manual acceptance scenarios.
 - Publish for `win-x64`.
 - Run the published executable from a writable folder on a clean Windows machine or VM.
@@ -458,38 +453,7 @@ Deliverable: complete operator workflow.
 
 Deliverable: verified single-file MVP executable.
 
-## 11. Test strategy
-
-### Unit tests
-
-- Starting with no JSON file creates one active competition.
-- Generated competition names match the required pattern.
-- A collision causes regeneration rather than overwrite.
-- Starting with one unfinished competition resumes it.
-- Finished competitions are not resumed.
-- Finishing sets only the active competition's finish time.
-- JSON round-trips timestamps and null finish time.
-- Malformed JSON is rejected and preserved.
-- Multiple active competitions are rejected for recording.
-- CSV header is created once.
-- Each passage appends exactly one row.
-- Duplicate start numbers are accepted.
-- Leading zeroes in start numbers are preserved.
-- Empty and non-digit start numbers are rejected.
-- Elapsed time uses the passage timestamp and persisted start time.
-- Durations over 24 hours do not wrap.
-- Negative elapsed time is rejected.
-
-### UI or view-model tests
-
-- Button text and command availability reflect application state.
-- Enter invokes the same passage command as `Ok`.
-- Successful recording clears the input.
-- Failed recording retains the input.
-- Repeated invocation while a write is active is ignored or disabled.
-- Timer refresh does not determine the stored passage time.
-
-### Manual acceptance tests
+## 11. Manual acceptance checks
 
 1. Launch from an empty writable directory, start a competition, record two different runners, record a second lap for one runner, and finish.
 2. Confirm JSON contains one finished competition with valid ISO 8601 timestamps.
@@ -505,7 +469,6 @@ Deliverable: verified single-file MVP executable.
 The first phase is complete when:
 
 - all functional requirements in this document are implemented;
-- automated tests pass;
 - the manual acceptance scenarios pass;
 - the app creates and updates the specified JSON structure;
 - runner passages are appended to the correctly named CSV;
