@@ -1,0 +1,72 @@
+==========================================
+.NET Core / WPF / C#
+==========================================
+[Bb]in/
+[Oo]bj/
+
+User configuration files
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+
+Visual Studio cache and temporary files
+.vs/
+*.dbmdl
+*.jfm
+*.pfx
+*.publishsettings
+
+WPF temporary compilation files (usually located in obj, but just in case)
+*.g.cs
+*.g.i.cs
+*.baml
+
+==========================================
+NuGet
+==========================================
+*.nupkg
+.nuget/
+packages/
+project.lock.json
+project.assets.json
+
+==========================================
+JetBrains Rider / ReSharper (if used)
+==========================================
+.idea/
+.sln.iml
+_ReSharper/
+*.[Rr]e[Ss]harper
+
+==========================================
+AI Tools (Copilot, Cursor, ChatGPT)
+==========================================
+Environment files (never commit API keys from OpenAI or other services!)
+.env
+.env.*
+*.env
+
+GitHub Copilot logs
+*.copilot_log
+
+Specific folders for AI editors (e.g., Cursor IDE)
+.cursor/workspace/
+.cursor/state/
+
+Note: the .cursorrules or .copilotignore file usually SHOULD be committed,
+so they are not listed here to let the AI know your project rules.
+Local AI chat history (if you save prompts locally in files)
+*.prompt.local
+chat-history.md
+ai-logs/
+
+==========================================
+OS (Windows, Mac)
+==========================================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
