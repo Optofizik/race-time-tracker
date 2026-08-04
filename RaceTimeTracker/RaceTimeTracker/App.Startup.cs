@@ -1,5 +1,7 @@
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using RaceTimeTracker.Application;
+using RaceTimeTracker.Infrastructure;
 
 namespace RaceTimeTracker;
 
@@ -26,6 +28,7 @@ public partial class App
 
     private static void ConfigureServices(IServiceCollection services)
     {
+        services.AddSingleton<ICompetitionRepository, JsonCompetitionRepository>();
         services.AddSingleton<MainWindow>();
     }
 }
