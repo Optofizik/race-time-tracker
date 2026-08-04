@@ -28,8 +28,12 @@ public partial class App
 
     private static void ConfigureServices(IServiceCollection services)
     {
+        services.AddSingleton<IClock, SystemClock>();
+        services.AddSingleton<ICompetitionNameGenerator, RandomCompetitionNameGenerator>();
         services.AddSingleton<ICompetitionRepository, JsonCompetitionRepository>();
         services.AddSingleton<IPassageWriter, CsvPassageWriter>();
+        services.AddSingleton<ICompetitionService, CompetitionService>();
+        services.AddSingleton<IPassageService, PassageService>();
         services.AddSingleton<MainWindow>();
     }
 }
