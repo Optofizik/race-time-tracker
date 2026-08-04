@@ -4,8 +4,91 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Race Time Tracker" Height="450" Width="800">
-    <Grid>
+        Title="Race Time Tracker"
+        Height="360"
+        Width="560"
+        MinHeight="320"
+        MinWidth="480"
+        Background="#F4F6F8">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="Padding" Value="18,8" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#1F2933" />
+        </Style>
+    </Window.Resources>
 
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" LastChildFill="True">
+            <Button DockPanel.Dock="Right"
+                    Width="120"
+                    Command="{Binding StartFinishCommand}"
+                    Content="{Binding StartFinishButtonText}" />
+            <StackPanel>
+                <TextBlock Text="{Binding CompetitionNameText}"
+                           FontSize="16"
+                           FontWeight="SemiBold" />
+                <TextBlock Text="{Binding StatusMessage}"
+                           Margin="0,6,16,0"
+                           TextWrapping="Wrap"
+                           Foreground="#475569" />
+            </StackPanel>
+        </DockPanel>
+
+        <Border Grid.Row="1"
+                Margin="0,28"
+                Padding="24"
+                Background="White"
+                BorderBrush="#D8DEE4"
+                BorderThickness="1"
+                CornerRadius="6">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <TextBlock Text="{Binding ElapsedTimeText}"
+                           FontFamily="Consolas"
+                           FontSize="52"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="Elapsed time"
+                           Margin="0,8,0,0"
+                           HorizontalAlignment="Center"
+                           Foreground="#64748B" />
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="StartNumberTextBox"
+                     Grid.Column="0"
+                     MinHeight="44"
+                     Padding="12,8"
+                     VerticalContentAlignment="Center"
+                     FontSize="18"
+                     Text="{Binding StartNumber, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter"
+                                Command="{Binding RecordPassageCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
+
+            <Button Grid.Column="2"
+                    Width="96"
+                    Command="{Binding RecordPassageCommand}"
+                    Content="Ok" />
+        </Grid>
     </Grid>
 </Window>

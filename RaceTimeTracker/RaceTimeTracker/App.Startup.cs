@@ -2,6 +2,7 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using RaceTimeTracker.Application;
 using RaceTimeTracker.Infrastructure;
+using RaceTimeTracker.Presentation;
 
 namespace RaceTimeTracker;
 
@@ -34,6 +35,7 @@ public partial class App
         services.AddSingleton<IPassageWriter, CsvPassageWriter>();
         services.AddSingleton<ICompetitionService, CompetitionService>();
         services.AddSingleton<IPassageService, PassageService>();
+        services.AddTransient<MainWindowViewModel>();
         services.AddSingleton<MainWindow>();
     }
 }
