@@ -29,6 +29,7 @@ public partial class App
     private static void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton<ICompetitionRepository, JsonCompetitionRepository>();
+        services.AddSingleton<IPassageWriter, CsvPassageWriter>();
         services.AddSingleton<MainWindow>();
     }
 }
