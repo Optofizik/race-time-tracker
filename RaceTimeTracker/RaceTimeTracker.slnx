@@ -1,6 +1,9 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="../phases/first_phase.md" />
+    <File Path="../phases/formatter.md" />
   </Folder>
+  <Project Path="RaceTimeTracker.Formatter/RaceTimeTracker.Formatter.csproj" />
+  <Project Path="RaceTimeTracker.Formatter.Tests/RaceTimeTracker.Formatter.Tests.csproj" />
   <Project Path="RaceTimeTracker/RaceTimeTracker.csproj" />
 </Solution>
